@@ -18,7 +18,7 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
-    'draft-js': 'Draft',
+    'draft-js': 'draft-js',
     'douban-editor': 'DoubanEditor'
   },
   plugins: [
