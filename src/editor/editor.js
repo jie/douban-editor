@@ -4,7 +4,6 @@ import {
     Editor,
     EditorState,
     RichUtils,
-    DefaultDraftBlockRenderMap,
     AtomicBlockUtils,
     ContentState,
     convertToRaw,
@@ -12,65 +11,26 @@ import {
     getSafeBodyFromHTML,
     CompositeDecorator
 } from 'draft-js'
-import Immutable from 'immutable'
-import { BUTTON_ITEMS, Controlbar } from '../components'
 
-
+import {
+    BUTTON_ITEMS,
+    Controlbar,
+    blockRenderMap,
+    extendedBlockRenderMap,
+    MediaBlock,
+    mediaBlockRenderer
+} from '../components'
 
 function myBlockStyleFn(contentBlock) {
   const type = contentBlock.getType();
   if (type === 'code-block') {
-    return 'article-code'
+    return 'db-code'
   } else if (type == 'blockquote') {
-    return 'article-blockquote'
-  } else if (type == 'picture-block') {
-    return 'article-picture'
+    return 'db-blockquote'
   } else if (type == 'atomic') {
-    return 'picture'
+    return 'db-picture'
   }
 }
-
-
-function mediaBlockRenderer(block) {
-  if (block.getType() === 'atomic') {
-    return {
-      component: Media,
-      editable: false,
-    };
-  }
-
-  return null;
-}
-
-
-class MyCodeBlockWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <pre className="code-block-wrapper" style={{maxWidth:'100%', overflowX:'auto'}}>
-        <code className="hljs">
-            {this.props.children}
-        </code>
-      </pre>
-    );
-  }
-}
-
-
-const blockRenderMap = Immutable.Map({
-  'code-block': {
-    wrapper: <MyCodeBlockWrapper />,
-  },
-  'atomic': {
-    wrapper: <div className="atomic-picture-wrapper" />,
-  }
-})
-
-
-const extendedBlockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap)
 
 class DoubanEditor extends React.Component {
   constructor(props) {
@@ -107,7 +67,6 @@ class DoubanEditor extends React.Component {
     }
 
     this.addAudio = this._addAudio.bind(this)
-    this.addImage = this._addImage.bind(this)
     this.confirmMedia = this._confirmMedia.bind(this)
     this.addVideo = this._addVideo.bind(this)
     this.onURLInputKeyDown = this._onURLInputKeyDown.bind(this)
@@ -198,7 +157,6 @@ class DoubanEditor extends React.Component {
         src: pic.thumb,
         file: pic
       })
-
       this.setState({
         editorState: AtomicBlockUtils.insertAtomicBlock(
           editorState,
@@ -215,7 +173,7 @@ class DoubanEditor extends React.Component {
     this._promptForMedia('audio')
   }
 
-  _addImage(pictures) {
+  addImage = (pictures) => {
     this._confirmPictureMedia(pictures)
   }
 
@@ -250,18 +208,18 @@ class DoubanEditor extends React.Component {
   getEditor() {
     const {editorState} = this.state
     return <Editor
-      spellCheck={false}
-      editorState={editorState}
-      blockRendererFn={mediaBlockRenderer}
-      blockStyleFn={myBlockStyleFn}
-      blockRenderMap={extendedBlockRenderMap}
-      handleKeyCommand={this.handleKeyCommand}
-      onChange={this.onChange}
-      onTab={this.onTab}
-      onFocus={this.onFocus}
-      onBlur={this.onBlur}
-      ref="editor"
-      placeholder={this.props.placeholder}
+        spellCheck={false}
+        editorState={editorState}
+        blockRendererFn={mediaBlockRenderer}
+        blockStyleFn={myBlockStyleFn}
+        blockRenderMap={extendedBlockRenderMap}
+        handleKeyCommand={this.handleKeyCommand}
+        onChange={this.onChange}
+        onTab={this.onTab}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        ref="editor"
+        placeholder={this.props.placeholder}
     />
   }
 
@@ -279,6 +237,7 @@ class DoubanEditor extends React.Component {
             toggleBlockType={this.toggleBlockType}
             buttonItems={BUTTON_ITEMS}
             editorState={this.state.editorState}
+            addImage={this.addImage}
         />
         <div className="content">
             {this.getEditor()}

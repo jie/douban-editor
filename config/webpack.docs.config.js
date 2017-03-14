@@ -7,17 +7,18 @@ const precss = require('precss');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    '../src/index',
+    './docs/index',
   ],
   output: {
-    path: path.join(__dirname, '../dist'),
-    filename: 'douban-editor.min.js',
+    path: path.join(__dirname, '../docs'),
+    filename: 'bundle.min.js',
     libraryTarget: 'commonjs2',
   },
   externals: {
     react: 'react',
     'react-dom': 'react-dom',
     'draft-js': 'draft-js',
+    'douban-editor': 'douban-editor'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -30,7 +31,6 @@ module.exports = {
         warnings: false,
       },
     }),
-    new ExtractTextPlugin('react-draft-wysiwyg.css'),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [autoprefixer, precss],

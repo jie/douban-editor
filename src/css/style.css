@@ -2,28 +2,40 @@
     position: relative;
 }
 
-.db-editor .DraftEditor-editorContainer,.db-editor .DraftEditor-root, .db-editor .public-DraftEditor-content{height:inherit;text-align:initial}
-
-.db-editor .public-DraftEditorPlaceholder-root,
-.db-editor .public-DraftEditor-content {
-  margin: 0 -15px -15px;
-  padding: 15px;
-}
-
-.db-editor .public-DraftEditor-content {
-    min-height: 100px;
-}
-
-.public-DraftEditorPlaceholder-root {
-    color: #9197a3;
+.db-editor .public-DraftEditorPlaceholder-root {
     position: absolute;
-    z-index: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #aaa;
+    pointer-events: none;
+    line-height: 1.8;
+}
+.db-editor .public-DraftEditor-content .db-code{
+    color: #999;
+    font-family: 'Consolas';
+}
+.db-editor .public-DraftEditor-content .db-blockquote{
+    font-size: 14px;
+    font-style: italic;
+}
+.db-editor .public-DraftEditor-content {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: 400px;
+    overflow: auto;
+    line-height: 1.8;
 }
 
-.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
-  display: none;
+.db-editor blockquote {
+  font-family:  'Georgia', 'Hoefler Text',serif;
+  font-style: italic;
+  margin: 0;
+  padding: 0 0 0 20px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  color: #9b9b9b;
+  background-image: url(https://img3.doubanio.com/f/sns/4e05379b65eac9cbef392f0343a6494c18db06ae/pics/sns/note/editor_icons/svg_blockquote1.svg);
 }
-
 
 .db-controlbar {
   margin-top: 10px;
@@ -88,6 +100,29 @@
     outline: 0
 }
 
+.db-editor pre code {
+    line-height: 20px;
+    margin: 0;
+    color: #313131;
+    background-color: #f7f7f7;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    overflow: auto;
+    padding: 1.3em;
+    border: 0;
+    font-family: 'Consolas';
+    border-radius: 5px;
+}
+
+.db-editor figure img {
+    border: 5px solid #ddd;
+    box-sizing: content-box;
+}
+
+.db-editor figure img:hover {
+    border: 5px solid #ccc;
+}
 
 input::-webkit-input-placeholder {
   color: #ccc;

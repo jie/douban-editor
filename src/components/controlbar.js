@@ -85,38 +85,37 @@ class Controlbar extends React.Component {
     }
 
     getInlineButton(type) {
+      let isActive = false;
+      if(this.props.editorState) {
+          let currentStyle = this.props.editorState.getCurrentInlineStyle();
+          isActive = currentStyle.has(type.style)
+      }
+
+       return <InlineButton
+           key={type.label}
+           active={isActive}
+           label={type.label}
+           tip={type.tip}
+           onToggle={this.props.toggleInlineStyle}
+           style={type.style}
+              />
+    }
+
+    getBlockButton(type) {
         const {editorState} = this.props;
         const selection = editorState.getSelection();
         const blockType = editorState
           .getCurrentContent()
           .getBlockForKey(selection.getStartKey())
           .getType();
-
         return <InlineButton
             key={type.label}
             active={type.style === blockType}
             label={type.label}
             tip={type.tip}
-            onToggle={this.props.toggleInlineStyle}
-            style={type.style}
-        />
-    }
-
-    getBlockButton(type) {
-        let isActive = false;
-        if(this.props.editorState) {
-            let currentStyle = this.props.editorState.getCurrentInlineStyle();
-            isActive = currentStyle.has(type.style)
-        }
-
-        return <InlineButton
-            key={type.label}
-            active={isActive}
-            label={type.label}
-            tip={type.tip}
             onToggle={this.props.toggleBlockType}
             style={type.style}
-        />
+               />
     }
 
     getUploadButton(type) {

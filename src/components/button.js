@@ -42,7 +42,7 @@ const TipAfter = {
   content: "",
   position: 'absolute',
   left: "50%",
-  bottom: "-5px",
+  bottom: "-4px",
   marginLeft: "-3px",
   width: "5px",
   height: "5px",
@@ -111,8 +111,9 @@ class InlineButton extends BaseButton {
   render() {
     let className = this.props.buttonClass;
     if (this.props.active) {
-      className += ' actived';
+      className += ` actived`;
     }
+
     return (
       <span className={className}
           onMouseDown={this.onToggle}
@@ -124,7 +125,6 @@ class InlineButton extends BaseButton {
     )
   }
 }
-
 
 class CommandButton extends BaseButton {
 
