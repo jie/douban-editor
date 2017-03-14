@@ -15,10 +15,11 @@ module.exports = {
     // libraryTarget: 'commonjs2',
   },
   externals: {
-    react: 'react',
-    'react-dom': 'react-dom',
-    'draft-js': 'draft-js',
-    'douban-editor': 'douban-editor'
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    'draft-js': 'Draft',
+    'douban-editor': 'DoubanEditor'
   },
   plugins: [
     new webpack.DefinePlugin({

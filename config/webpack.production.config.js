@@ -15,9 +15,10 @@ module.exports = {
     // libraryTarget: 'commonjs2',
   },
   externals: {
-    react: 'react',
-    'react-dom': 'react-dom',
-    'draft-js': 'draft-js',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    'draft-js': 'draft-js'
   },
   plugins: [
     new webpack.DefinePlugin({
