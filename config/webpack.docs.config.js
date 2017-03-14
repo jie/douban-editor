@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../docs'),
     filename: 'bundle.min.js',
-    libraryTarget: 'commonjs2',
+    // libraryTarget: 'commonjs2',
   },
   externals: {
     react: 'react',

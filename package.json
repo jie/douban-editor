@@ -7,7 +7,7 @@
         "example": "examples"
     },
     "scripts": {
-        "build:webpack": "NODE_ENV=production webpack --config config/webpack.production.config.js",
+        "build:webpack": "NODE_ENV=production webpack --config config/webpack.production.config.js && webpack --config config/webpack.docs.config.js",
         "build:docs": "NODE_ENV=production webpack --config config/webpack.docs.config.js",
         "build": "npm run build:webpack",
         "start": "node config/dev_server.js"
