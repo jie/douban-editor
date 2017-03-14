@@ -18,8 +18,7 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
-    'douban-editor': 'doubaneditor',
-    'draft-js': 'draftjs'
+    'douban-editor': 'DoubanEditor'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -27,11 +26,11 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compressor: {
-    //     warnings: false,
-    //   },
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [autoprefixer, precss],

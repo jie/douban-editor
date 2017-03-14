@@ -18,7 +18,7 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
-    'draft-js': 'draftjs'
+    'draft-js': 'Draft'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -26,11 +26,11 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compressor: {
-    //     warnings: false,
-    //   },
-    // }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [autoprefixer, precss],
