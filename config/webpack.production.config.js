@@ -18,6 +18,7 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
+    'draft-js': 'draft-js'
   },
   plugins: [
     new webpack.DefinePlugin({
