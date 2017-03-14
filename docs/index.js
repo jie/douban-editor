@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import DoubanEditor from 'douban-editor';
+import {DoubanEditor} from 'douban-editor';
 
 class MyDoubanEditor extends React.Component {
     constructor(props) {
