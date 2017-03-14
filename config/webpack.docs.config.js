@@ -18,8 +18,8 @@ module.exports = {
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-addons-css-transition-group': 'React.addons.CSSTransitionGroup',
-    'douban-editor': 'douban-editor',
-    'draft-js': 'draft-js'
+    'douban-editor': 'doubaneditor',
+    'draft-js': 'draftjs'
   },
   plugins: [
     new webpack.DefinePlugin({
