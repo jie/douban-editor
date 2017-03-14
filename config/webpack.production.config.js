@@ -13,6 +13,8 @@ module.exports = {
     path: path.join(__dirname, '../dist'),
     filename: 'douban-editor.min.js',
     // libraryTarget: 'commonjs2',
+    library: 'DoubanEditor',
+    libraryTarget: 'var'
   },
   externals: {
     'react': 'React',
