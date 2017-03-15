@@ -235,15 +235,22 @@ class DoubanEditor extends React.Component {
         <Controlbar
             toggleInlineStyle={this.toggleInlineStyle}
             toggleBlockType={this.toggleBlockType}
-            buttonItems={BUTTON_ITEMS}
             editorState={this.state.editorState}
             addImage={this.addImage}
+            buttonItems={this.props.buttonItems}
+            buttonIcons={this.props.buttonIcons}
         />
         <div className="content">
             {this.getEditor()}
         </div>
     </div>
   }
+}
+
+
+DoubanEditor.propTypes = {
+    buttonItems: React.PropTypes.array,
+    buttonIcons: React.PropTypes.object,
 }
 
 

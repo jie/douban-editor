@@ -2,7 +2,8 @@ import {
     BaseButton,
     InlineButton,
     UploadButton,
-    CommandButton
+    CommandButton,
+    icons
 } from './button'
 
 import {
@@ -30,5 +31,6 @@ module.exports = {
     blockRenderMap: blockRenderMap,
     MediaBlock: MediaBlock,
     extendedBlockRenderMap: extendedBlockRenderMap,
-    mediaBlockRenderer:mediaBlockRenderer
+    mediaBlockRenderer:mediaBlockRenderer,
+    icons: icons
 }

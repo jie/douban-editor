@@ -9,58 +9,58 @@ const BUTTON_ITEMS = [
     type: 'inline'
   },
   {
-    label: 'ITALIC',
-    style: 'ITALIC',
-    tip: '斜体',
-    type: 'inline'
-  },
-  {
-    label: 'UNDERLINE',
-    style: 'UNDERLINE',
-    tip: '下划线',
-    type: 'inline'
-  },
-  {
-    label: 'UL',
-    style: 'unordered-list-item',
-    tip: '列表',
-    type: 'block'
-  },
-  {
-    label: 'OL',
-    style: 'ordered-list-item',
-    tip: '有序列表',
-    type: 'block'
-  },
-  {
-    type: 'sep'
-  },
-  {
     label: 'Blockquote',
     style: 'blockquote',
     tip: '引用',
     type: 'block'
   },
   {
-    label: 'Code',
-    style: 'code-block',
-    tip: '代码',
-    type: 'block'
+    label: 'header',
+    style: 'Header',
+    tip: '小标题',
+    type: 'inline'
   },
   {
     type: 'sep'
   },
   {
     label: 'Picture',
-    style: 'picture-block',
+    style: 'picture',
     tip: '上传照片',
     type: 'upload'
+  },
+  {
+    label: 'Video',
+    style: 'video',
+    tip: '插入视频',
+    type: 'command'
+  },
+  {
+    label: 'Link',
+    style: 'link',
+    tip: '插入链接',
+    type: 'command'
   },
   {
     type: 'sep'
   },
   {
-    label: 'text',
+    label: 'Dash',
+    style: 'dash',
+    tip: '分割线',
+    type: 'inline'
+  },
+  {
+    label: 'Enter',
+    style: 'enter',
+    tip: '分行 Shift+回车',
+    type: 'inline'
+  },
+  {
+    type: 'sep'
+  },
+  {
+    label: 'preface',
     tip: '前言',
     type: 'command',
     command: 'showPreface'
@@ -73,11 +73,40 @@ const BUTTON_ITEMS = [
   }
 ]
 
-
+// {
+//   label: 'ITALIC',
+//   style: 'ITALIC',
+//   tip: '斜体',
+//   type: 'inline'
+// },
+// {
+//   label: 'UL',
+//   style: 'unordered-list-item',
+//   tip: '列表',
+//   type: 'block'
+// },
+// {
+//   label: 'OL',
+//   style: 'ordered-list-item',
+//   tip: '有序列表',
+//   type: 'block'
+// },
+// {
+//   label: 'Code',
+//   style: 'code-block',
+//   tip: '代码',
+//   type: 'block'
+// },
+// {
+//   label: 'underline',
+//   style: 'UNDERLINE',
+//   tip: '下划线',
+//   type: 'inline'
+// },
 class Controlbar extends React.Component {
     static defaultProps = {
         className: 'db-controlbar',
-        buttonItems: []
+        buttonItems: BUTTON_ITEMS
     }
 
     constructor(props) {
@@ -92,6 +121,7 @@ class Controlbar extends React.Component {
       }
 
        return <InlineButton
+           buttonItems={this.props.buttonItems}
            key={type.label}
            active={isActive}
            label={type.label}
@@ -109,6 +139,7 @@ class Controlbar extends React.Component {
           .getBlockForKey(selection.getStartKey())
           .getType();
         return <InlineButton
+            buttonItems={this.props.buttonItems}
             key={type.label}
             active={type.style === blockType}
             label={type.label}
@@ -126,6 +157,7 @@ class Controlbar extends React.Component {
           .getType()
 
         return <UploadButton
+            buttonItems={this.props.buttonItems}
             key={type.label}
             active={type.style === blockType}
             label={type.label}
@@ -149,6 +181,7 @@ class Controlbar extends React.Component {
                 buttons.push(this.getUploadButton(item))
             } else if(item.type == 'command') {
                 buttons.push(<CommandButton
+                            buttonItems={this.props.buttonItems}
                             key={i}
                             label={item.label}
                             tip={item.tip || item.label}
@@ -164,6 +197,12 @@ class Controlbar extends React.Component {
         return <div className={this.props.className}>{this.getButtons()}</div>
     }
 }
+
+Controlbar.propTypes = {
+    buttonIcons: React.PropTypes.object,
+    buttonItems: React.PropTypes.array,
+}
+
 
 
 module.exports = {

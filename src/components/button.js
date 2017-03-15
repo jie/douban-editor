@@ -1,28 +1,5 @@
-import React from 'react';
-import octicons from 'octicons'
-
-const btnIcons = {
-  bold: <i className="fa fa-bold" aria-hidden="true"></i>,
-  italic: <i className="fa fa-italic" aria-hidden="true"></i>,
-  underline: <i className="fa fa-underline" aria-hidden="true"></i>,
-  header: <i className="fa fa-header" aria-hidden="true"></i>,
-  blockquote: <i className="fa fa-quote-left" aria-hidden="true"></i>,
-  code: <i className="fa fa-code" aria-hidden="true"></i>,
-  ol: <i className="fa fa-list-ol" aria-hidden="true"></i>,
-  ul: <i className="fa fa-list" aria-hidden="true"></i>,
-  header: <i className="fa fa-header" aria-hidden="true"></i>,
-  link: <i className="fa fa-link" aria-hidden="true"></i>,
-  picture: <i className="fa fa-picture-o" aria-hidden="true"></i>,
-  video: <i className="fa fa-video-camera" aria-hidden="true"></i>,
-  times: <i className="fa fa-times" aria-hidden="true"></i>,
-  commenting: <i className="fa fa-commenting-o" aria-hidden="true"></i>,
-  share: <i className="fa fa-share-alt" aria-hidden="true"></i>,
-  upload: <i className="fa fa-upload" aria-hidden="true"></i>,
-  book: <i className="fa fa-book" aria-hidden="true"></i>,
-  text: <i className="fa fa-file-text-o" aria-hidden="true"></i>,
-  save: <i className="fa fa-floppy-o" aria-hidden="true"></i>
-}
-
+import React from 'react'
+import { ButtonIcons } from './icons'
 
 const TipStyle = {
   position: 'absolute',
@@ -57,7 +34,8 @@ const TipAfter = {
 class BaseButton extends React.Component {
 
     static defaultProps = {
-        buttonClass: 'db-button'
+        buttonClass: 'db-button',
+        buttonIcons: ButtonIcons
     }
 
     constructor(props) {
@@ -87,8 +65,8 @@ class BaseButton extends React.Component {
     }
 
     getIcon() {
-        if(btnIcons[this.props.label.toLowerCase()]) {
-            return btnIcons[this.props.label.toLowerCase()]
+        if(this.props.buttonIcons[this.props.label.toLowerCase()]) {
+            return this.props.buttonIcons[this.props.label.toLowerCase()]
         }
     }
 }

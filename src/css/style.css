@@ -34,7 +34,7 @@
   background-position: 0 0;
   background-repeat: no-repeat;
   color: #9b9b9b;
-  background-image: url(https://img3.doubanio.com/f/sns/4e05379b65eac9cbef392f0343a6494c18db06ae/pics/sns/note/editor_icons/svg_blockquote1.svg);
+  background-image: url(../image/icon/quote.svg);
 }
 
 .db-controlbar {
@@ -123,6 +123,15 @@
 .db-editor figure img:hover {
     border: 5px solid #ccc;
 }
+
+.db-editor .dbicon {
+    fill: #999;
+}
+
+.db-editor .dbicon:hover {
+    fill: red;
+}
+
 
 input::-webkit-input-placeholder {
   color: #ccc;
