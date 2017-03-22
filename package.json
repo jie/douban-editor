@@ -11,7 +11,7 @@
         "build:docs": "NODE_ENV=production webpack --config config/webpack.docs.config.js",
         "build": "npm run build:webpack",
         "start": "node config/dev_server.js",
-        "sync": "git add . && git commit -m '$num' && git push origin master"
+        "sync": "git add . && git commit -m '$msg' && git push origin master"
     },
     "repository": {
         "type": "git",
