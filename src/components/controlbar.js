@@ -27,7 +27,8 @@ const BUTTON_ITEMS = [
     label: 'Picture',
     style: 'picture',
     tip: '上传照片',
-    type: 'upload'
+    type: 'upload',
+    fileAccept: 'image/*'
   },
   {
     label: 'Video',
@@ -155,7 +156,6 @@ class Controlbar extends React.Component {
         const blockType = editorState.getCurrentContent()
           .getBlockForKey(selection.getStartKey())
           .getType()
-
         return <UploadButton
             buttonItems={this.props.buttonItems}
             key={type.label}
@@ -164,6 +164,7 @@ class Controlbar extends React.Component {
             tip={type.tip}
             addImage={this.props.addImage}
             style={type.style}
+            fileAccept={this.props.fileAccept}
         />
     }
 

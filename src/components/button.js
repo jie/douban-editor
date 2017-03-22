@@ -95,7 +95,7 @@ class InlineButton extends BaseButton {
           onMouseDown={this.onToggle}
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}>
-        {this.getTip()}
+          {this.getTip()}
         {this.getIcon()}
       </span>
     )
@@ -124,6 +124,13 @@ class CommandButton extends BaseButton {
 
 class UploadButton extends BaseButton {
 
+    static defaultProps = {
+        buttonClass: 'db-button',
+        buttonIcons: ButtonIcons,
+        fileRef: '__db_file_field'
+    }
+
+
   onFileChange(event) {
     event.preventDefault()
     let target = event.target
@@ -148,11 +155,24 @@ class UploadButton extends BaseButton {
     }
   }
 
+  clickButton(e) {
+      var fileField = this.refs[this.props.fileRef];
+      fileField.click()
+  }
+
   render() {
+    let restProps = {
+        accept: this.props.fileAccept,
+        ref: this.props.fileRef
+    }
     return (
-      <span className={this.props.buttonClass}>
-        <input type="file" accept="image/*" multiple={true} onChange={this.onFileChange.bind(this)}/>
-        {this.getIcon()}
+      <span className={this.props.buttonClass}
+          onClick={this.clickButton.bind(this)}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}>
+          {this.getTip()}
+          <input type="file" style={{display: 'none'}} multiple={true} onChange={this.onFileChange.bind(this)} {...restProps}/>
+          {this.getIcon()}
       </span>
       )
   }
