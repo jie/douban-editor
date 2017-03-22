@@ -1,12 +1,6 @@
 import React from 'react'
 import {Entity} from 'draft-js'
-const styles = {
-  media: {
-    maxWidth: 500,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  }
-}
+
 
 class MediaBlock extends React.Component {
 
@@ -20,11 +14,11 @@ class MediaBlock extends React.Component {
         const type = entity.getType()
         let media
         if (type === 'audio') {
-            media = <audio controls src={src} style={styles.media} />
+            media = <audio controls src={src} className="db-media db-video" />
         } else if (type === 'image') {
-            media = <img src={src} style={styles.media} />
+            media = <img src={src} className="db-media db-image" />
         } else if (type === 'video') {
-            media = <video controls src={src} style={styles.media} />
+            media = <video controls src={src} className="db-media db-audio" />
         }
         return media
     }

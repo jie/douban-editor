@@ -171,23 +171,31 @@ class Controlbar extends React.Component {
         let buttons = [];
         for(let i=0;i<this.props.buttonItems.length;i++) {
             let item = this.props.buttonItems[i]
-            if(item.type == 'sep') {
-                buttons.push(<div className="db-sep" key={i}></div>)
-            } else if(item.type == 'inline') {
-                buttons.push(this.getInlineButton(item))
-            } else if(item.type == 'block') {
-                buttons.push(this.getBlockButton(item))
-            } else if(item.type =='upload') {
-                buttons.push(this.getUploadButton(item))
-            } else if(item.type == 'command') {
-                buttons.push(<CommandButton
-                            buttonItems={this.props.buttonItems}
-                            key={i}
-                            label={item.label}
-                            tip={item.tip || item.label}
-                            clickButton={this.props[item.command]}
-                            style={item.style}
-                        />)
+            switch(item.type) {
+                case 'sep':
+                    buttons.push(<div className="db-sep" key={i}></div>)
+                    break
+                case 'block':
+                    buttons.push(this.getBlockButton(item))
+                    break
+                case 'inline':
+                    buttons.push(this.getInlineButton(item))
+                    break
+                case 'upload':
+                    buttons.push(this.getUploadButton(item))
+                    break
+                case 'command':
+                    buttons.push(<CommandButton
+                        buttonItems={this.props.buttonItems}
+                        key={i}
+                        label={item.label}
+                        tip={item.tip || item.label}
+                        clickButton={this.props[item.command]}
+                        style={item.style} />)
+                    break
+                default:
+                    console.warn('unsupported button type:', item.type)
+
             }
         }
         return buttons

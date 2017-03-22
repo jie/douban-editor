@@ -30,11 +30,12 @@
   font-family:  'Georgia', 'Hoefler Text',serif;
   font-style: italic;
   margin: 0;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 30px;
   background-position: 0 0;
   background-repeat: no-repeat;
+  background-size: 20px 20px;
   color: #9b9b9b;
-  background-image: url(../image/icon/quote.svg);
+  background-image: url(../image/icon/quote-blur.svg);
 }
 
 .db-controlbar {
@@ -76,13 +77,19 @@
   position: relative;
 }
 
-
-.db-button:hover {
-  color: #666;
+.db-button .dbicon {
+    fill: #666;
+    cursor: pointer;
 }
 
-.db-button.actived {
+.db-button:hover, .db-button:hover .dbicon {
+  color: #333;
+  fill: #333
+}
+
+.db-button.actived,  .db-button.actived .dbicon {
     color: green;
+    fill: green
 }
 
 .db-editor .title input{
@@ -122,14 +129,6 @@
 
 .db-editor figure img:hover {
     border: 5px solid #ccc;
-}
-
-.db-editor .dbicon {
-    fill: #999;
-}
-
-.db-editor .dbicon:hover {
-    fill: red;
 }
 
 

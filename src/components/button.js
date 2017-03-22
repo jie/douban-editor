@@ -4,7 +4,7 @@ import { ButtonIcons } from './icons'
 const TipStyle = {
   position: 'absolute',
   padding: '4px 6px',
-  top: '-20px',
+  top: '-25px',
   left: '50%',
   transform: 'translateX(-50%)',
   background: 'rgba(0,0,0,0.8)',
@@ -19,15 +19,13 @@ const TipAfter = {
   content: "",
   position: 'absolute',
   left: "50%",
-  bottom: "-4px",
-  marginLeft: "-3px",
-  width: "5px",
-  height: "5px",
+  bottom: "-6px",
+  marginLeft: "-6px",
   width: 0,
   height: 0,
-  borderLeft: "4px solid rgba(0, 0, 0, 0)",
-  borderRight: "4px solid rgba(0, 0, 0, 0)",
-  borderTop: "5px solid rgba(0,0,0,0.8)",
+  borderLeft: "6px solid rgba(0, 0, 0, 0)",
+  borderRight: "6px solid rgba(0, 0, 0, 0)",
+  borderTop: "8px solid rgba(0,0,0,0.8)",
 }
 
 
