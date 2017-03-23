@@ -125,13 +125,13 @@
     border-radius: 5px;
 }
 
-.db-editor .db-picture img {
+.db-editor .db-atomic img {
     border: 5px solid #ddd;
     box-sizing: content-box;
     max-width: 90%;
 }
 
-.db-editor .db-picture {
+.db-editor .db-atomic {
     text-align: center;
 }
 
@@ -154,6 +154,30 @@
 
 .db-editor .db-unstyle {
     margin: 0 0 20px 0;
+}
+
+.db-editor .db-dash {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20px;
+}
+
+.db-editor .db-dash hr {
+    padding: 25px 0;
+    margin: 0;
+    border: 0;
+}
+
+.db-editor .db-dash hr:before {
+    position: absolute;
+    content: "";
+    font-size: 0;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    margin: -2px 0 0 -150px;
+    border-top: 1px dashed #dfdfdf;
+    border-bottom: 1px dashed #dfdfdf;
 }
 
 input::-webkit-input-placeholder {

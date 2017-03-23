@@ -1,6 +1,6 @@
 import React from 'react';
 import { RichUtils } from 'draft-js'
-import { InlineButton, PictureButton, CommandButton } from './button'
+import { InlineButton, PictureButton, CommandButton, VideoButton } from './button'
 
 
 const BUTTON_ITEMS = [
@@ -30,13 +30,15 @@ const BUTTON_ITEMS = [
     style: 'picture',
     tip: '上传照片',
     type: 'picture',
-    fileAccept: 'image/*'
+    fileAccept: 'image/jpeg,image/jpg,image/gif,image/png'
   },
   {
     label: 'Video',
     style: 'video',
     tip: '插入视频',
-    type: 'command'
+    type: 'video',
+    command: 'insertVideo',
+    fileAccept: 'video/*'
   },
   {
     label: 'Link',
@@ -51,7 +53,8 @@ const BUTTON_ITEMS = [
     label: 'Dash',
     style: 'dash',
     tip: '分割线',
-    type: 'inline'
+    type: 'command',
+    command: 'insertDashLine',
   },
   {
     label: 'Enter',
@@ -77,37 +80,9 @@ const BUTTON_ITEMS = [
   }
 ]
 
-// {
-//   label: 'ITALIC',
-//   style: 'ITALIC',
-//   tip: '斜体',
-//   type: 'inline'
-// },
-// {
-//   label: 'UL',
-//   style: 'unordered-list-item',
-//   tip: '列表',
-//   type: 'block'
-// },
-// {
-//   label: 'OL',
-//   style: 'ordered-list-item',
-//   tip: '有序列表',
-//   type: 'block'
-// },
-// {
-//   label: 'Code',
-//   style: 'code-block',
-//   tip: '代码',
-//   type: 'block'
-// },
-// {
-//   label: 'underline',
-//   style: 'UNDERLINE',
-//   tip: '下划线',
-//   type: 'inline'
-// },
+
 class Controlbar extends React.Component {
+
     static defaultProps = {
         className: 'db-controlbar',
         buttonItems: BUTTON_ITEMS
@@ -165,23 +140,28 @@ class Controlbar extends React.Component {
             active={type.style === blockType}
             label={type.label}
             tip={type.tip}
-            addImage={this.props.addImage}
+            insertPicture={this.props.insertPicture}
             style={type.style}
-            fileAccept={this.props.fileAccept}
+            fileAccept={type.fileAccept}
         />
     }
 
-    insertSoftNewLine =()=> {
-        const {editorState} = this.props;
-        this.props.updateState(RichUtils.insertSoftNewline(editorState))
-    }
-
-    showPreface =()=> {
-
-    }
-
-    showSaveDialog =()=> {
-
+    getVideoButton(type) {
+        const {editorState} = this.props
+        const selection = editorState.getSelection()
+        const blockType = editorState.getCurrentContent()
+          .getBlockForKey(selection.getStartKey())
+          .getType()
+        return <VideoButton
+            buttonItems={this.props.buttonItems}
+            key={type.label}
+            active={type.style === blockType}
+            label={type.label}
+            tip={type.tip}
+            insertVideo={this.props.insertVideo}
+            style={type.style}
+            fileAccept={type.fileAccept}
+        />
     }
 
     getButtons() {
@@ -201,13 +181,16 @@ class Controlbar extends React.Component {
                 case 'picture':
                     buttons.push(this.getPictureButton(item))
                     break
+                case 'video':
+                    buttons.push(this.getVideoButton(item))
+                    break
                 case 'command':
                     buttons.push(<CommandButton
                         buttonItems={this.props.buttonItems}
                         key={i}
                         label={item.label}
                         tip={item.tip || item.label}
-                        clickButton={this[item.command]}
+                        clickButton={this.props[item.command]}
                         style={item.style} />)
                     break
                 default:
@@ -223,11 +206,11 @@ class Controlbar extends React.Component {
     }
 }
 
+
 Controlbar.propTypes = {
     buttonIcons: React.PropTypes.object,
     buttonItems: React.PropTypes.array,
 }
-
 
 
 module.exports = {

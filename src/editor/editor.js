@@ -29,7 +29,7 @@ function myBlockStyleFn(contentBlock) {
     } else if (type == 'blockquote') {
         return 'db-blockquote'
     } else if (type == 'atomic') {
-        return 'db-picture'
+        return 'db-atomic'
     } else {
         return 'db-unstyle'
     }
@@ -69,9 +69,7 @@ class DoubanEditor extends React.Component {
       const content = this.state.editorState.getCurrentContent()
     }
 
-    this.addAudio = this._addAudio.bind(this)
     this.confirmMedia = this._confirmMedia.bind(this)
-    this.addVideo = this._addVideo.bind(this)
     this.onURLInputKeyDown = this._onURLInputKeyDown.bind(this)
   }
 
@@ -161,16 +159,16 @@ class DoubanEditor extends React.Component {
   _confirmPictureMedia(pictures) {
     const {editorState} = this.state
     pictures.map(pic => {
-      let {editorState} = this.state
-      let contentState = editorState.getCurrentContent()
-      let _contentState = contentState.createEntity('image', 'IMMUTABLE', {
+      const {editorState} = this.state
+      const contentState = editorState.getCurrentContent()
+      const newState = contentState.createEntity('image', 'IMMUTABLE', {
         src: pic.thumb,
         file: pic
       })
       this.setState({
         editorState: AtomicBlockUtils.insertAtomicBlock(
           editorState,
-          _contentState.getLastCreatedEntityKey(),
+          newState.getLastCreatedEntityKey(),
           pic.thumb
         )
       }, () => {
@@ -179,16 +177,26 @@ class DoubanEditor extends React.Component {
     })
   }
 
-  _addAudio() {
-    this._promptForMedia('audio')
-  }
-
-  addImage = (pictures) => {
+  insertPicture = (pictures) => {
     this._confirmPictureMedia(pictures)
   }
 
-  _addVideo() {
-    this._promptForMedia('video')
+  insertVideo =(vfile)=> {
+      const {editorState} = this.state
+      const contentState = editorState.getCurrentContent()
+      const newState = contentState.createEntity('video', 'IMMUTABLE', {
+          src: vfile.thumb,
+          file: vfile
+      })
+      this.setState({
+        editorState: AtomicBlockUtils.insertAtomicBlock(
+          editorState,
+          newState.getLastCreatedEntityKey(),
+          ' '
+        )
+      }, () => {
+        setTimeout(() => this.focus(), 0)
+      })
   }
 
   _confirmMedia(e) {
@@ -243,6 +251,37 @@ class DoubanEditor extends React.Component {
       this.setState({title: e.target.value})
   }
 
+  insertSoftNewLine =()=> {
+      const {editorState} = this.state;
+      const newState = RichUtils.insertSoftNewline(editorState);
+      if(newState) {
+          this.onChange(newState)
+      }
+  }
+
+  insertDashLine =()=> {
+      const {editorState} = this.state
+      const contentState = editorState.getCurrentContent()
+      const newState = contentState.createEntity('dash', 'IMMUTABLE', {})
+      this.setState({
+        editorState: AtomicBlockUtils.insertAtomicBlock(
+          editorState,
+          newState.getLastCreatedEntityKey(),
+          ' '
+        )
+      }, () => {
+        setTimeout(() => this.focus(), 0)
+      })
+  }
+
+  showPreface =()=> {
+
+  }
+
+  showSaveDialog =()=> {
+
+  }
+
   render() {
     return <div className="db-editor">
         <div className="title">
@@ -258,8 +297,12 @@ class DoubanEditor extends React.Component {
             toggleInlineStyle={this.toggleInlineStyle}
             toggleBlockType={this.toggleBlockType}
             editorState={this.state.editorState}
-            addImage={this.addImage}
-            updateState={this.onChange}
+            insertPicture={this.insertPicture}
+            insertVideo={this.insertVideo}
+            insertSoftNewLine={this.insertSoftNewLine}
+            insertDashLine={this.insertDashLine}
+            showPreface={this.showPreface}
+            showSaveDialog={this.showSaveDialog}
             buttonItems={this.props.buttonItems}
             buttonIcons={this.props.buttonIcons}
         />

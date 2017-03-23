@@ -4,14 +4,13 @@ import {
 
 
 
-function keyBindingFn(e: SyntheticKeyboardEvent): string {    
+function keyBindingFn(e: SyntheticKeyboardEvent): string {
   if (e.keyCode === 13 /* `Enter` key */) {
   	if (e.nativeEvent.shiftKey) {
   	    return 'soft-enter'
-  	} else {
-  		return getDefaultKeyBinding(e);
   	}
   }
+  return getDefaultKeyBinding(e);
 
 }
 

@@ -127,7 +127,8 @@ class PictureButton extends BaseButton {
     static defaultProps = {
         buttonClass: 'db-button',
         buttonIcons: ButtonIcons,
-        fileRef: '__db_file_field'
+        fileRef: '__db_picture_field',
+        fileAccept: ''
     }
 
 
@@ -150,14 +151,13 @@ class PictureButton extends BaseButton {
     for (let item of files) {
       pictures.push(item)
     }
-    if (this.props.addImage) {
-      this.props.addImage(pictures)
+    if (this.props.insertPicture) {
+      this.props.insertPicture(pictures)
     }
   }
 
   clickButton(e) {
-      var fileField = this.refs[this.props.fileRef];
-      fileField.click()
+      this.refs[this.props.fileRef].click()
   }
 
   render() {
@@ -186,9 +186,63 @@ class PictureButton extends BaseButton {
 
 
 
+class VideoButton extends BaseButton {
+
+    static defaultProps = {
+        buttonClass: 'db-button',
+        buttonIcons: ButtonIcons,
+        fileRef: '__db_video_field',
+        fileAccept: ''
+    }
+
+
+  onFileChange(event) {
+    event.preventDefault()
+    const target = event.target
+    const files = target.files
+    const count = files.length
+    const vfile = files[0]
+    vfile.thumb = window.URL.createObjectURL(vfile)
+
+    if (this.props.insertVideo) {
+      this.props.insertVideo(vfile)
+    }
+  }
+
+  clickButton(e) {
+      this.refs[this.props.fileRef].click()
+  }
+
+  render() {
+    const restProps = {
+        accept: this.props.fileAccept,
+        ref: this.props.fileRef
+    }
+    return (
+      <span className={this.props.buttonClass}
+          onClick={this.clickButton.bind(this)}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}>
+          {this.getTip()}
+          <input
+              type="file"
+              style={{display: 'none'}}
+              multiple={false}
+              onChange={this.onFileChange.bind(this)}
+              {...restProps}
+          />
+          {this.getIcon()}
+      </span>
+      )
+  }
+}
+
+
+
 module.exports = {
   BaseButton: BaseButton,
   InlineButton: InlineButton,
   PictureButton: PictureButton,
+  VideoButton: VideoButton,
   CommandButton: CommandButton
 }

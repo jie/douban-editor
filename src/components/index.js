@@ -3,6 +3,7 @@ import {
     InlineButton,
     PictureButton,
     CommandButton,
+    VideoButton,
     icons
 } from './button'
 
@@ -29,6 +30,7 @@ module.exports = {
     BaseButton:BaseButton,
     InlineButton:InlineButton,
     PictureButton:PictureButton,
+    VideoButton:VideoButton,
     CommandButton:CommandButton,
     BUTTON_ITEMS:BUTTON_ITEMS,
     Controlbar:Controlbar,

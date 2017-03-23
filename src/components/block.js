@@ -9,16 +9,19 @@ class MediaBlock extends React.Component {
     }
 
     render() {
-        const entity = Entity.get(this.props.block.getEntityAt(0))
+        const key = this.props.contentState.getLastCreatedEntityKey()
+        const entity = this.props.contentState.getEntity(key)
         const {src} = entity.getData()
         const type = entity.getType()
-        let media
+        let media = ''
         if (type === 'audio') {
             media = <audio controls src={src} className="db-media db-video" />
         } else if (type === 'image') {
             media = <img src={src} className="db-media db-image" />
         } else if (type === 'video') {
             media = <video controls src={src} className="db-media db-audio" />
+        } else if (type === 'dash') {
+            media = <div className="db-dash"><hr /></div>
         }
         return media
     }
