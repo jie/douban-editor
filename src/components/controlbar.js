@@ -1,6 +1,6 @@
 import React from 'react';
 import { RichUtils } from 'draft-js'
-import { InlineButton, PictureButton, CommandButton, VideoButton } from './button'
+import { InlineButton, PictureButton, CommandButton, VideoButton, LinkButton } from './button'
 
 
 const BUTTON_ITEMS = [
@@ -44,7 +44,8 @@ const BUTTON_ITEMS = [
     label: 'Link',
     style: 'link',
     tip: '插入链接',
-    type: 'command'
+    type: 'link',
+    command: 'toggleLinkDialog'
   },
   {
     type: 'sep'
@@ -164,6 +165,24 @@ class Controlbar extends React.Component {
         />
     }
 
+    getLinkButton(type) {
+        const {editorState} = this.props
+        const selection = editorState.getSelection()
+        const blockType = editorState.getCurrentContent()
+          .getBlockForKey(selection.getStartKey())
+          .getType()
+        return <LinkButton
+            buttonItems={this.props.buttonItems}
+            key={type.label}
+            active={type.style === blockType}
+            label={type.label}
+            tip={type.tip}
+            toggleLinkDialog={this.props.toggleLinkDialog}
+            insertLink={this.props.insertLink}
+            style={type.style}
+        />
+    }
+
     getButtons() {
         let buttons = [];
         for(let i=0;i<this.props.buttonItems.length;i++) {
@@ -183,6 +202,9 @@ class Controlbar extends React.Component {
                     break
                 case 'video':
                     buttons.push(this.getVideoButton(item))
+                    break
+                case 'link':
+                    buttons.push(this.getLinkButton(item))
                     break
                 case 'command':
                     buttons.push(<CommandButton

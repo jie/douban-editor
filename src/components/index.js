@@ -26,18 +26,23 @@ import {
     keyBindingFn
 } from './keybinding'
 
+import {
+    BeanLinkDialog
+} from './dialog'
+
 module.exports = {
-    BaseButton:BaseButton,
-    InlineButton:InlineButton,
-    PictureButton:PictureButton,
-    VideoButton:VideoButton,
-    CommandButton:CommandButton,
-    BUTTON_ITEMS:BUTTON_ITEMS,
-    Controlbar:Controlbar,
-    blockRenderMap: blockRenderMap,
-    MediaBlock: MediaBlock,
+    BaseButton: BaseButton,
+    InlineButton: InlineButton,
+    PictureButton: PictureButton,
+    VideoButton: VideoButton,
+    CommandButton: CommandButton,
+    BUTTON_ITEMS: BUTTON_ITEMS,
+    Controlbar: Controlbar,
+    blockRenderMap:  blockRenderMap,
+    MediaBlock:  MediaBlock,
     extendedBlockRenderMap: extendedBlockRenderMap,
-    mediaBlockRenderer:mediaBlockRenderer,
+    mediaBlockRenderer: mediaBlockRenderer,
     icons: icons,
-    keyBindingFn: keyBindingFn
+    keyBindingFn: keyBindingFn,
+    BeanLinkDialog: BeanLinkDialog
 }

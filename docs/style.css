@@ -180,6 +180,140 @@
     border-bottom: 1px dashed #dfdfdf;
 }
 
+.db-dialog {
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: rgba(0,0,0,0.3);
+}
+
+.db-dialog .db-dialog-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.db-dialog .db-dialog-wrapper:before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 100%;
+    margin-left: -1px;
+    vertical-align: middle;
+}
+
+.db-dialog .db-dialog-panel {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 640px;
+    min-width: 240px;
+    background: #fff;
+    text-align: left;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.db-dialog .db-dialog-close {
+    position: absolute;
+    padding: 20px;
+    right: 18px;
+    top: 6px;
+    font-weight: lighter;
+    line-height: 1;
+    font-size: 24px;
+}
+
+.db-dialog a:visited {
+    color: #669;
+    text-decoration: none;
+}
+
+.db-dialog .db-dialog-panel {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 640px;
+    min-width: 240px;
+    background: #fff;
+    text-align: left;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 6px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.db-dialog .db-dialog-hd {
+    padding: 25px 40px 0;
+    margin: 0;
+    font-size: 15px;
+    color: #072;
+}
+
+.db-dialog .db-dialog-bd {
+    padding: 15px 40px 30px;
+}
+
+.db-dialog .db-popup-form-link {
+    width: 420px;
+    position: relative;
+}
+
+.db-popup-form-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.db-popup-form-item input[type=text] {
+    padding: 0 10px;
+    box-sizing: border-box;
+    font-size: .928em;
+    border: 1px solid #eee;
+    background: #fff;
+    -webkit-appearance: none;
+    padding: 12px 10px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.db-popup-form-submit {
+    text-align: left;
+}
+
+.db-popup-form-submit button {
+    margin: 0 20px 0 0;
+    display: inline-block;
+    padding: 5px 20px;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    background-color: #3aa253;
+    border-color: #51873e;
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+}
+
 input::-webkit-input-placeholder {
   color: #ccc;
 }

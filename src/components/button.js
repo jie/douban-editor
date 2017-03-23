@@ -237,12 +237,37 @@ class VideoButton extends BaseButton {
   }
 }
 
+class LinkButton extends BaseButton {
 
+    static defaultProps = {
+        buttonClass: 'db-button',
+        buttonIcons: ButtonIcons,
+    }
+
+  clickButton(e) {
+      if(this.props.toggleLinkDialog) {
+          this.props.toggleLinkDialog()
+      }
+  }
+
+  render() {
+    return (
+      <span className={this.props.buttonClass}
+          onClick={this.clickButton.bind(this)}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}>
+          {this.getTip()}
+          {this.getIcon()}
+      </span>
+      )
+  }
+}
 
 module.exports = {
   BaseButton: BaseButton,
   InlineButton: InlineButton,
   PictureButton: PictureButton,
   VideoButton: VideoButton,
-  CommandButton: CommandButton
+  CommandButton: CommandButton,
+  LinkButton: LinkButton
 }

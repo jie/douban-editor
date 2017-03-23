@@ -19,7 +19,8 @@ import {
     extendedBlockRenderMap,
     MediaBlock,
     mediaBlockRenderer,
-    keyBindingFn
+    keyBindingFn,
+    BeanLinkDialog
 } from '../components'
 
 function myBlockStyleFn(contentBlock) {
@@ -251,6 +252,14 @@ class DoubanEditor extends React.Component {
       this.setState({title: e.target.value})
   }
 
+  insertLink =(ob)=> {
+      console.log(ob)
+  }
+
+  toggleLinkDialog =()=> {
+      this.refs['bean-link-dialog'].toggleLinkDialog()
+  }
+
   insertSoftNewLine =()=> {
       const {editorState} = this.state;
       const newState = RichUtils.insertSoftNewline(editorState);
@@ -305,10 +314,15 @@ class DoubanEditor extends React.Component {
             showSaveDialog={this.showSaveDialog}
             buttonItems={this.props.buttonItems}
             buttonIcons={this.props.buttonIcons}
+            toggleLinkDialog={this.toggleLinkDialog}
         />
         <div className="content">
             {this.getEditor()}
         </div>
+        <BeanLinkDialog
+            ref="bean-link-dialog"
+            insertLink={this.insertLink}
+        />
     </div>
   }
 }
