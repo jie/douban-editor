@@ -38,6 +38,7 @@ module.exports = {
         postcss: [autoprefixer, precss],
       }
     }),
+    new ExtractTextPlugin("style.css")
   ],
   module: {
     loaders: [
