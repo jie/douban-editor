@@ -18,18 +18,21 @@ import {
     blockRenderMap,
     extendedBlockRenderMap,
     MediaBlock,
-    mediaBlockRenderer
+    mediaBlockRenderer,
+    keyBindingFn
 } from '../components'
 
 function myBlockStyleFn(contentBlock) {
-  const type = contentBlock.getType();
-  if (type === 'code-block') {
-    return 'db-code'
-  } else if (type == 'blockquote') {
-    return 'db-blockquote'
-  } else if (type == 'atomic') {
-    return 'db-picture'
-  }
+    const type = contentBlock.getType();
+    if (type === 'code-block') {
+        return 'db-code'
+    } else if (type == 'blockquote') {
+        return 'db-blockquote'
+    } else if (type == 'atomic') {
+        return 'db-picture'
+    } else {
+        return 'db-unstyle'
+    }
 }
 
 class DoubanEditor extends React.Component {
@@ -74,11 +77,18 @@ class DoubanEditor extends React.Component {
 
   _handleKeyCommand(command) {
     const {editorState} = this.state
-    const newState = RichUtils.handleKeyCommand(editorState, command)
-    if (newState) {
-      this.onChange(newState)
-      return true
+    let newState;
+    if(command == 'soft-enter') {
+        newState = RichUtils.insertSoftNewline(editorState)
+    } else {
+        newState = RichUtils.handleKeyCommand(editorState, command)
     }
+
+    if (newState) {
+        this.onChange(newState)
+        return true
+    }
+
     return false
   }
 
@@ -205,6 +215,11 @@ class DoubanEditor extends React.Component {
       }
   }
 
+  handleReturn =(e)=> {
+      console.log(e)
+      e.stopPropagation()
+  }
+
   getEditor() {
     const {editorState} = this.state
     return <Editor
@@ -214,6 +229,7 @@ class DoubanEditor extends React.Component {
         blockStyleFn={myBlockStyleFn}
         blockRenderMap={extendedBlockRenderMap}
         handleKeyCommand={this.handleKeyCommand}
+        keyBindingFn={keyBindingFn}
         onChange={this.onChange}
         onTab={this.onTab}
         onFocus={this.onFocus}
@@ -230,13 +246,20 @@ class DoubanEditor extends React.Component {
   render() {
     return <div className="db-editor">
         <div className="title">
-            <input type="text" placeholder={this.props.titlePlaceholder || ''} dir="auto" value={this.state.title} onChange={this.handleTitleChange}/>
+            <input
+                type="text"
+                placeholder={this.props.titlePlaceholder || ''}
+                dir="auto"
+                value={this.state.title}
+                onChange={this.handleTitleChange}
+            />
         </div>
         <Controlbar
             toggleInlineStyle={this.toggleInlineStyle}
             toggleBlockType={this.toggleBlockType}
             editorState={this.state.editorState}
             addImage={this.addImage}
+            updateState={this.onChange}
             buttonItems={this.props.buttonItems}
             buttonIcons={this.props.buttonIcons}
         />

@@ -125,9 +125,14 @@
     border-radius: 5px;
 }
 
-.db-editor figure img {
+.db-editor .db-picture img {
     border: 5px solid #ddd;
     box-sizing: content-box;
+    max-width: 90%;
+}
+
+.db-editor .db-picture {
+    text-align: center;
 }
 
 .db-editor figure img:hover {
@@ -145,6 +150,10 @@
 
 .db-editor .public-DraftEditor-content h4>div:before {
     content: '# '
+}
+
+.db-editor .db-unstyle {
+    margin: 0 0 20px 0;
 }
 
 input::-webkit-input-placeholder {

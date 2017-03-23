@@ -21,6 +21,10 @@ import {
     mediaBlockRenderer
 } from './block'
 
+import {
+    keyBindingFn
+} from './keybinding'
+
 module.exports = {
     BaseButton:BaseButton,
     InlineButton:InlineButton,
@@ -32,5 +36,6 @@ module.exports = {
     MediaBlock: MediaBlock,
     extendedBlockRenderMap: extendedBlockRenderMap,
     mediaBlockRenderer:mediaBlockRenderer,
-    icons: icons
+    icons: icons,
+    keyBindingFn: keyBindingFn
 }

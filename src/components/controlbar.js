@@ -1,5 +1,7 @@
 import React from 'react';
+import { RichUtils } from 'draft-js'
 import { InlineButton, PictureButton, CommandButton } from './button'
+
 
 const BUTTON_ITEMS = [
   {
@@ -55,7 +57,8 @@ const BUTTON_ITEMS = [
     label: 'Enter',
     style: 'enter',
     tip: '分行 Shift+回车',
-    type: 'inline'
+    type: 'command',
+    command: 'insertSoftNewLine',
   },
   {
     type: 'sep'
@@ -129,7 +132,7 @@ class Controlbar extends React.Component {
            tip={type.tip}
            onToggle={this.props.toggleInlineStyle}
            style={type.style}
-              />
+        />
     }
 
     getBlockButton(type) {
@@ -147,7 +150,7 @@ class Controlbar extends React.Component {
             tip={type.tip}
             onToggle={this.props.toggleBlockType}
             style={type.style}
-               />
+        />
     }
 
     getPictureButton(type) {
@@ -166,6 +169,19 @@ class Controlbar extends React.Component {
             style={type.style}
             fileAccept={this.props.fileAccept}
         />
+    }
+
+    insertSoftNewLine =()=> {
+        const {editorState} = this.props;
+        this.props.updateState(RichUtils.insertSoftNewline(editorState))
+    }
+
+    showPreface =()=> {
+
+    }
+
+    showSaveDialog =()=> {
+
     }
 
     getButtons() {
@@ -191,7 +207,7 @@ class Controlbar extends React.Component {
                         key={i}
                         label={item.label}
                         tip={item.tip || item.label}
-                        clickButton={this.props[item.command]}
+                        clickButton={this[item.command]}
                         style={item.style} />)
                     break
                 default:

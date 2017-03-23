@@ -171,7 +171,13 @@ class PictureButton extends BaseButton {
           onMouseEnter={this.onMouseEnter}
           onMouseLeave={this.onMouseLeave}>
           {this.getTip()}
-          <input type="file" style={{display: 'none'}} multiple={true} onChange={this.onFileChange.bind(this)} {...restProps}/>
+          <input
+              type="file"
+              style={{display: 'none'}}
+              multiple={true}
+              onChange={this.onFileChange.bind(this)}
+              {...restProps}
+          />
           {this.getIcon()}
       </span>
       )
