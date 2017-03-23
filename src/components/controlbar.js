@@ -1,5 +1,5 @@
 import React from 'react';
-import { InlineButton, UploadButton, CommandButton } from './button'
+import { InlineButton, PictureButton, CommandButton } from './button'
 
 const BUTTON_ITEMS = [
   {
@@ -16,9 +16,9 @@ const BUTTON_ITEMS = [
   },
   {
     label: 'header',
-    style: 'Header',
+    style: 'header-four',
     tip: '小标题',
-    type: 'inline'
+    type: 'block'
   },
   {
     type: 'sep'
@@ -27,7 +27,7 @@ const BUTTON_ITEMS = [
     label: 'Picture',
     style: 'picture',
     tip: '上传照片',
-    type: 'upload',
+    type: 'picture',
     fileAccept: 'image/*'
   },
   {
@@ -150,13 +150,13 @@ class Controlbar extends React.Component {
                />
     }
 
-    getUploadButton(type) {
+    getPictureButton(type) {
         const {editorState} = this.props
         const selection = editorState.getSelection()
         const blockType = editorState.getCurrentContent()
           .getBlockForKey(selection.getStartKey())
           .getType()
-        return <UploadButton
+        return <PictureButton
             buttonItems={this.props.buttonItems}
             key={type.label}
             active={type.style === blockType}
@@ -182,8 +182,8 @@ class Controlbar extends React.Component {
                 case 'inline':
                     buttons.push(this.getInlineButton(item))
                     break
-                case 'upload':
-                    buttons.push(this.getUploadButton(item))
+                case 'picture':
+                    buttons.push(this.getPictureButton(item))
                     break
                 case 'command':
                     buttons.push(<CommandButton

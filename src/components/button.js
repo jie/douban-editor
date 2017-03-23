@@ -122,7 +122,7 @@ class CommandButton extends BaseButton {
   }
 }
 
-class UploadButton extends BaseButton {
+class PictureButton extends BaseButton {
 
     static defaultProps = {
         buttonClass: 'db-button',
@@ -183,6 +183,6 @@ class UploadButton extends BaseButton {
 module.exports = {
   BaseButton: BaseButton,
   InlineButton: InlineButton,
-  UploadButton: UploadButton,
+  PictureButton: PictureButton,
   CommandButton: CommandButton
 }

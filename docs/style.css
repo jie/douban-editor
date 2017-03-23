@@ -1,3 +1,6 @@
+.db-editor {
+    font-family: -apple-system, "SF UI Text", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
 .db-editor .DraftEditor-root {
     position: relative;
 }
@@ -15,7 +18,6 @@
     font-family: 'Consolas';
 }
 .db-editor .public-DraftEditor-content .db-blockquote{
-    font-size: 14px;
     font-style: italic;
 }
 .db-editor .public-DraftEditor-content {
@@ -24,6 +26,7 @@
     min-height: 400px;
     overflow: auto;
     line-height: 1.8;
+    color: #333;
 }
 
 .db-editor blockquote {
@@ -131,6 +134,18 @@
     border: 5px solid #ccc;
 }
 
+.db-editor .public-DraftEditor-content figure {
+    margin: 5px;
+}
+
+.db-editor .public-DraftEditor-content h4 {
+    margin: 5px;
+    font-size: 120%;
+}
+
+.db-editor .public-DraftEditor-content h4>div:before {
+    content: '# '
+}
 
 input::-webkit-input-placeholder {
   color: #ccc;
