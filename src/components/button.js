@@ -196,45 +196,45 @@ class VideoButton extends BaseButton {
     }
 
 
-  onFileChange(event) {
-    event.preventDefault()
-    const target = event.target
-    const files = target.files
-    const count = files.length
-    const vfile = files[0]
-    vfile.thumb = window.URL.createObjectURL(vfile)
+    onFileChange(event) {
+        event.preventDefault()
+        const target = event.target
+        const files = target.files
+        const count = files.length
+        const vfile = files[0]
+        vfile.thumb = window.URL.createObjectURL(vfile)
 
-    if (this.props.insertVideo) {
-      this.props.insertVideo(vfile)
+        if (this.props.insertVideo) {
+          this.props.insertVideo(vfile)
+        }
     }
-  }
 
-  clickButton(e) {
-      this.refs[this.props.fileRef].click()
-  }
-
-  render() {
-    const restProps = {
-        accept: this.props.fileAccept,
-        ref: this.props.fileRef
+    clickButton(e) {
+        this.refs[this.props.fileRef].click()
     }
-    return (
-      <span className={this.props.buttonClass}
-          onClick={this.clickButton.bind(this)}
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave}>
-          {this.getTip()}
-          <input
-              type="file"
-              style={{display: 'none'}}
-              multiple={false}
-              onChange={this.onFileChange.bind(this)}
-              {...restProps}
-          />
-          {this.getIcon()}
-      </span>
-      )
-  }
+
+    render() {
+        const restProps = {
+            accept: this.props.fileAccept,
+            ref: this.props.fileRef
+        }
+        return (
+          <span className={this.props.buttonClass}
+              onClick={this.clickButton.bind(this)}
+              onMouseEnter={this.onMouseEnter}
+              onMouseLeave={this.onMouseLeave}>
+              {this.getTip()}
+              <input
+                  type="file"
+                  style={{display: 'none'}}
+                  multiple={false}
+                  onChange={this.onFileChange.bind(this)}
+                  {...restProps}
+              />
+              {this.getIcon()}
+          </span>
+        )
+    }
 }
 
 class LinkButton extends BaseButton {
@@ -245,8 +245,8 @@ class LinkButton extends BaseButton {
     }
 
   clickButton(e) {
-      if(this.props.toggleLinkDialog) {
-          this.props.toggleLinkDialog()
+      if(this.props.showLinkDialog) {
+          this.props.showLinkDialog()
       }
   }
 

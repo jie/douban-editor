@@ -252,12 +252,34 @@ class DoubanEditor extends React.Component {
       this.setState({title: e.target.value})
   }
 
-  insertLink =(ob)=> {
-      console.log(ob)
+  insertLink =(link)=> {
+      const {editorState} = this.state
+      const contentState = editorState.getCurrentContent()
+      const contentStateWithEntity = contentState.createEntity(
+        'LINK',
+        'MUTABLE',
+        {url: link.link}
+      )
+      const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+      const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+      this.setState({
+        editorState: RichUtils.toggleLink(
+          newEditorState,
+          newEditorState.getSelection(),
+          entityKey
+        )
+      }, () => {
+        setTimeout(() => this.refs.editor.focus(), 0)
+      })
   }
 
   toggleLinkDialog =()=> {
       this.refs['bean-link-dialog'].toggleLinkDialog()
+  }
+
+  showLinkDialog =()=> {
+    const {editorState} = this.state;
+    this.refs['bean-link-dialog'].initLinkDialog(editorState)
   }
 
   insertSoftNewLine =()=> {
@@ -315,6 +337,7 @@ class DoubanEditor extends React.Component {
             buttonItems={this.props.buttonItems}
             buttonIcons={this.props.buttonIcons}
             toggleLinkDialog={this.toggleLinkDialog}
+            showLinkDialog={this.showLinkDialog}
         />
         <div className="content">
             {this.getEditor()}

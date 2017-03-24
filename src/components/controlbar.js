@@ -45,7 +45,7 @@ const BUTTON_ITEMS = [
     style: 'link',
     tip: '插入链接',
     type: 'link',
-    command: 'toggleLinkDialog'
+    command: 'showLinkDialog'
   },
   {
     type: 'sep'
@@ -178,6 +178,7 @@ class Controlbar extends React.Component {
             label={type.label}
             tip={type.tip}
             toggleLinkDialog={this.props.toggleLinkDialog}
+            showLinkDialog={this.props.showLinkDialog}
             insertLink={this.props.insertLink}
             style={type.style}
         />

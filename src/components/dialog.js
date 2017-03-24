@@ -14,9 +14,11 @@ class BeanLinkDialog extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-          text: props.text,
-          link: props.link,
-          isVisiable: false
+          text: props.text || '',
+          link: props.link || '',
+          dialogStyle: {
+              display: 'none'
+          }
       }
     }
 
@@ -26,6 +28,7 @@ class BeanLinkDialog extends React.Component {
                 text: this.state.text,
                 link: this.state.link
             })
+            this.toggleLinkDialog()
         }
     }
 
@@ -41,56 +44,73 @@ class BeanLinkDialog extends React.Component {
         })
     }
 
+    initLinkDialog =(editorState)=> {
+        const selection = editorState.getSelection()
+        const block = editorState.getCurrentContent().getBlockForKey(selection.getStartKey())
+
+        if(block) {
+            let state = {
+                dialogStyle: {}
+            }
+            if(block.text) {
+                state.text = block.text.slice(selection.anchorOffset, selection.focusOffset)
+            }
+            if(block.link) {
+                state.link = block.link
+            }
+
+            this.setState(state)
+        }
+    }
+
     toggleLinkDialog =()=> {
-        if(this.state.isVisiable) {
+        if(this.state.dialogStyle.display) {
             this.setState({
-                isVisiable: false
+                dialogStyle: {}
             })
         } else {
             this.setState({
-                isVisiable: true
+                dialogStyle: {
+                    display: 'none'
+                }
             })
         }
     }
 
     render() {
-        let dialog = ''
-        if(this.state.isVisiable) {
-            dialog = (<div className="db-dialog">
-                <div className="db-dialog-wrapper">
-                    <div className="db-dialog-panel">
-                        <a className="db-dialog-close">×</a>
-                        <div className="db-dialog-content">
-                            <div className="db-dialog-hd">{this.props.title}</div>
-                            <div className="db-dialog-bd">
-                                <div className="db-popup-form db-popup-form-link">
-                                    <div className="db-popup-form-item">
-                                        <input type="text"
-                                            value={this.state.text}
-                                            onChange={this.onTextChange}
-                                            placeholder={this.props.textPlaceholder}
-                                        />
-                                    </div>
-                                    <div className="db-popup-form-item">
-                                        <input type="text"
-                                            value={this.state.link}
-                                            onChange={this.onTextChange}
-                                            placeholder={this.props.linkPlaceholder}
-                                        />
-                                    </div>
-                                    <div className="db-popup-form-submit">
-                                        <button className="db-popup-form-button-main"
-                                            type="submit"
-                                            onClick={this.insertLink}>{this.props.submitLabel}</button>
-                                    </div>
+        return <div className="db-dialog" style={this.state.dialogStyle}>
+            <div className="db-dialog-wrapper">
+                <div className="db-dialog-panel">
+                    <a className="db-dialog-close" onClick={this.toggleLinkDialog}>×</a>
+                    <div className="db-dialog-content">
+                        <div className="db-dialog-hd">{this.props.title}</div>
+                        <div className="db-dialog-bd">
+                            <div className="db-popup-form db-popup-form-link">
+                                <div className="db-popup-form-item">
+                                    <input type="text"
+                                        value={this.state.text}
+                                        onChange={this.onTextChange}
+                                        placeholder={this.props.textPlaceholder}
+                                    />
+                                </div>
+                                <div className="db-popup-form-item">
+                                    <input type="text"
+                                        value={this.state.link}
+                                        onChange={this.onLinkChange}
+                                        placeholder={this.props.linkPlaceholder}
+                                    />
+                                </div>
+                                <div className="db-popup-form-submit">
+                                    <button className="db-popup-form-button-main"
+                                        type="submit"
+                                        onClick={this.insertLink}>{this.props.submitLabel}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>)
-        }
-        return <br />
+            </div>
+        </div>
     }
 }
 
