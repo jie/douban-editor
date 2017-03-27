@@ -37,6 +37,14 @@ class AtomicWrapper extends BaseWrapper {
   }
 }
 
+const LinkWrapper = (props) => {
+  const {url} = props.contentState.getEntity(props.entityKey).getData()
+  return (
+    <a href={url}>
+      {props.children}
+    </a>
+  )
+}
 
 const blockRenderMap = Immutable.Map({
     'code-block': {
@@ -57,5 +65,6 @@ module.exports = {
     BlockquoteWrapper: BlockquoteWrapper,
     AtomicWrapper:    AtomicWrapper,
     blockRenderMap: blockRenderMap,
-    extendedBlockRenderMap: extendedBlockRenderMap
+    extendedBlockRenderMap: extendedBlockRenderMap,
+    LinkWrapper: LinkWrapper
 }

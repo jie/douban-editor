@@ -14,7 +14,8 @@ import {
 
 import {
     blockRenderMap,
-    extendedBlockRenderMap
+    extendedBlockRenderMap,
+    LinkWrapper
 } from './wrapper'
 
 import {
@@ -44,5 +45,6 @@ module.exports = {
     mediaBlockRenderer: mediaBlockRenderer,
     icons: icons,
     keyBindingFn: keyBindingFn,
-    BeanLinkDialog: BeanLinkDialog
+    BeanLinkDialog: BeanLinkDialog,
+    LinkWrapper: LinkWrapper
 }

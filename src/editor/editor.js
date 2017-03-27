@@ -9,7 +9,8 @@ import {
     convertToRaw,
     convertFromHTML,
     getSafeBodyFromHTML,
-    CompositeDecorator
+    CompositeDecorator,
+    Modifier
 } from 'draft-js'
 
 import {
@@ -20,7 +21,8 @@ import {
     MediaBlock,
     mediaBlockRenderer,
     keyBindingFn,
-    BeanLinkDialog
+    BeanLinkDialog,
+    LinkWrapper
 } from '../components'
 
 function myBlockStyleFn(contentBlock) {
@@ -39,8 +41,15 @@ function myBlockStyleFn(contentBlock) {
 class DoubanEditor extends React.Component {
   constructor(props) {
     super(props)
+    const decorator = new CompositeDecorator([
+      {
+        strategy: findLinkEntities,
+        component: LinkWrapper,
+      },
+    ])
+
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createEmpty(decorator),
       title: this.props.title || '',
       showURLInput: false,
       url: '',
@@ -252,24 +261,18 @@ class DoubanEditor extends React.Component {
       this.setState({title: e.target.value})
   }
 
-  insertLink =(link)=> {
+  insertDashLine =()=> {
       const {editorState} = this.state
       const contentState = editorState.getCurrentContent()
-      const contentStateWithEntity = contentState.createEntity(
-        'LINK',
-        'MUTABLE',
-        {url: link.link}
-      )
-      const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-      const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+      const newState = contentState.createEntity('dash', 'IMMUTABLE', {})
       this.setState({
-        editorState: RichUtils.toggleLink(
-          newEditorState,
-          newEditorState.getSelection(),
-          entityKey
+        editorState: AtomicBlockUtils.insertAtomicBlock(
+          editorState,
+          newState.getLastCreatedEntityKey(),
+          ' '
         )
       }, () => {
-        setTimeout(() => this.refs.editor.focus(), 0)
+        setTimeout(() => this.focus(), 0)
       })
   }
 
@@ -279,8 +282,71 @@ class DoubanEditor extends React.Component {
 
   showLinkDialog =()=> {
     const {editorState} = this.state;
-    this.refs['bean-link-dialog'].initLinkDialog(editorState)
+    const selection = editorState.getSelection()
+    const contentState = editorState.getCurrentContent();
+    const startKey = editorState.getSelection().getStartKey();
+    const startOffset = editorState.getSelection().getStartOffset();
+    const block = contentState.getBlockForKey(selection.getStartKey())
+    let link = {}
+
+    if (!selection.isCollapsed()) {
+        const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
+        const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
+        let url = '';
+        if (linkKey) {
+          const linkInstance = contentState.getEntity(linkKey);
+          url = linkInstance.getData().url;
+        }
+        link = {
+            text: block.text.slice(selection.anchorOffset, selection.focusOffset),
+            link: url,
+            disabled: true
+        }
+    } else{
+        if(block.text) {
+            link.text = block.text.slice(selection.anchorOffset, selection.focusOffset)
+        }
+        if(block.link) {
+            link.link = block.link
+        }
+    }
+    this.refs['bean-link-dialog'].initLinkDialog(link)
   }
+
+  insertLink =(link)=> {
+      const {editorState} = this.state
+      const selection = editorState.getSelection()
+      const contentState = editorState.getCurrentContent()
+      if (!selection.isCollapsed()) {
+          const contentStateWithEntity = contentState.createEntity(
+            'LINK',
+            'MUTABLE',
+            {url: link.link}
+          )
+
+          const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+          const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+
+          this.setState({
+            editorState: RichUtils.toggleLink(
+              newEditorState,
+              newEditorState.getSelection(),
+              entityKey
+            )
+          }, () => {
+            setTimeout(() => this.refs.editor.focus(), 0)
+          })
+      }else{
+          const entityKey = Entity.create('LINK', 'MUTABLE', {url: link.link});
+          const textWithEntity = Modifier.insertText(contentState, selection, link.text, null, entityKey);
+          this.setState({
+              editorState: EditorState.push(editorState, textWithEntity, 'insert-characters')
+          }, () => {
+              this.focus();
+          });
+      }
+  }
+
 
   insertSoftNewLine =()=> {
       const {editorState} = this.state;
@@ -348,6 +414,20 @@ class DoubanEditor extends React.Component {
         />
     </div>
   }
+}
+
+
+function findLinkEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity();
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === 'LINK'
+      )
+    },
+    callback
+  )
 }
 
 

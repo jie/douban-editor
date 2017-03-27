@@ -285,6 +285,10 @@
     font-size: 14px;
 }
 
+.db-popup-form-item input[disabled] {
+    border: 0;
+}
+
 .db-popup-form-submit {
     text-align: left;
 }

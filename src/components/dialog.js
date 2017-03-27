@@ -18,17 +18,21 @@ class BeanLinkDialog extends React.Component {
           link: props.link || '',
           dialogStyle: {
               display: 'none'
-          }
+          },
+          disabled: false
       }
     }
 
-    insertLink =()=> {
+    insertLink =(e)=> {
+        e.preventDefault()
         if(this.props.insertLink) {
             this.props.insertLink({
                 text: this.state.text,
                 link: this.state.link
             })
-            this.toggleLinkDialog()
+            this.setState({
+                dialogStyle: {'display': 'none'}
+            })
         }
     }
 
@@ -44,23 +48,21 @@ class BeanLinkDialog extends React.Component {
         })
     }
 
-    initLinkDialog =(editorState)=> {
-        const selection = editorState.getSelection()
-        const block = editorState.getCurrentContent().getBlockForKey(selection.getStartKey())
-
-        if(block) {
-            let state = {
-                dialogStyle: {}
-            }
-            if(block.text) {
-                state.text = block.text.slice(selection.anchorOffset, selection.focusOffset)
-            }
-            if(block.link) {
-                state.link = block.link
-            }
-
-            this.setState(state)
+    initLinkDialog =(link)=> {
+        let state = {
+            dialogStyle: {}
         }
+        if(link.text) {
+            state.text = link.text
+        }
+        if(link.link) {
+            state.link = link.link
+        }
+
+        if(link.disabled) {
+            state.disabled = true
+        }
+        this.setState(state)
     }
 
     toggleLinkDialog =()=> {
@@ -70,8 +72,11 @@ class BeanLinkDialog extends React.Component {
             })
         } else {
             this.setState({
+                text: '',
+                link: '',
+                disabled: false,
                 dialogStyle: {
-                    display: 'none'
+                    display: 'none',
                 }
             })
         }
@@ -91,6 +96,7 @@ class BeanLinkDialog extends React.Component {
                                         value={this.state.text}
                                         onChange={this.onTextChange}
                                         placeholder={this.props.textPlaceholder}
+                                        disabled={this.state.disabled}
                                     />
                                 </div>
                                 <div className="db-popup-form-item">
@@ -103,7 +109,7 @@ class BeanLinkDialog extends React.Component {
                                 <div className="db-popup-form-submit">
                                     <button className="db-popup-form-button-main"
                                         type="submit"
-                                        onClick={this.insertLink}>{this.props.submitLabel}</button>
+                                        onMouseDown={this.insertLink}>{this.props.submitLabel}</button>
                                 </div>
                             </div>
                         </div>
