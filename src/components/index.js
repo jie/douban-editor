@@ -31,6 +31,10 @@ import {
     BeanLinkDialog
 } from './dialog'
 
+import {
+    PrefaceTextarea
+} from './preface'
+
 module.exports = {
     BaseButton: BaseButton,
     InlineButton: InlineButton,
@@ -46,5 +50,6 @@ module.exports = {
     icons: icons,
     keyBindingFn: keyBindingFn,
     BeanLinkDialog: BeanLinkDialog,
-    LinkWrapper: LinkWrapper
+    LinkWrapper: LinkWrapper,
+    PrefaceTextarea: PrefaceTextarea
 }

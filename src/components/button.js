@@ -38,28 +38,12 @@ class BaseButton extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            showTip: false
-        }
-    }
-
-    onMouseEnter = e => {
-        this.setState({
-            showTip: true
-        })
-    }
-    onMouseLeave = e => {
-        this.setState({
-            showTip: false
-        })
     }
 
     getTip() {
-        if (this.state.showTip) {
-            return <div style={TipStyle}>{this.props.tip || this.props.label}
-                <span style={TipAfter}></span>
-            </div>
-        }
+        return <div className="db-tip" style={TipStyle}>{this.props.tip || this.props.label}
+            <span style={TipAfter}></span>
+        </div>
     }
 
     getIcon() {
@@ -269,5 +253,7 @@ module.exports = {
   PictureButton: PictureButton,
   VideoButton: VideoButton,
   CommandButton: CommandButton,
-  LinkButton: LinkButton
+  LinkButton: LinkButton,
+  TipStyle: TipStyle,
+  TipAfter: TipAfter
 }

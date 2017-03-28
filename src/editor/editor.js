@@ -22,7 +22,8 @@ import {
     mediaBlockRenderer,
     keyBindingFn,
     BeanLinkDialog,
-    LinkWrapper
+    LinkWrapper,
+    PrefaceTextarea
 } from '../components'
 
 function myBlockStyleFn(contentBlock) {
@@ -379,6 +380,10 @@ class DoubanEditor extends React.Component {
 
   }
 
+  togglePreface =()=> {
+      this.refs['bean-preface'].toggle()
+  }
+
   render() {
     return <div className="db-editor">
         <div className="title">
@@ -390,6 +395,7 @@ class DoubanEditor extends React.Component {
                 onChange={this.handleTitleChange}
             />
         </div>
+        <PrefaceTextarea ref="bean-preface"/>
         <Controlbar
             toggleInlineStyle={this.toggleInlineStyle}
             toggleBlockType={this.toggleBlockType}
@@ -404,6 +410,7 @@ class DoubanEditor extends React.Component {
             buttonIcons={this.props.buttonIcons}
             toggleLinkDialog={this.toggleLinkDialog}
             showLinkDialog={this.showLinkDialog}
+            togglePreface={this.togglePreface}
         />
         <div className="content">
             {this.getEditor()}

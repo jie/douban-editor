@@ -42,7 +42,6 @@
 }
 
 .db-controlbar {
-  margin-top: 10px;
   border-top: 1px solid #ddd;
 }
 
@@ -93,6 +92,10 @@
 .db-button.actived,  .db-button.actived .dbicon {
     color: green;
     fill: green
+}
+
+.db-editor .title {
+    margin-bottom: 10px;
 }
 
 .db-editor .title input{
@@ -178,6 +181,26 @@
     margin: -2px 0 0 -150px;
     border-top: 1px dashed #dfdfdf;
     border-bottom: 1px dashed #dfdfdf;
+}
+
+.db-editor .db-button .db-tip {
+    display: none
+}
+
+.db-editor .db-button:hover .db-tip {
+    display: block
+}
+
+
+.db-editor .db-link {
+    color: #3b5998;
+    text-decoration: underline;
+    position: relative;
+}
+
+.db-editor .db-link:hover {
+    color: #fff;
+    background: #333;
 }
 
 .db-dialog {
@@ -317,6 +340,24 @@
     font-weight: normal;
     color: #fff;
 }
+
+
+.db-preface-textarea {
+    line-height: 1.8;
+    padding: 10px 20px;
+    height: 43px;
+    color: #9b9b9b;
+    background: #f8f8f8;
+    border: 0;
+    font-size: 13px;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    outline: 0;
+    resize: none;
+    overflow: hidden;
+    width:100%
+}
+
 
 input::-webkit-input-placeholder {
   color: #ccc;

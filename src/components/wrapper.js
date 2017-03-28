@@ -1,6 +1,10 @@
 import React from 'react'
 import Immutable from 'immutable'
 import {
+    TipAfter,
+    TipStyle
+} from './button'
+import {
     DefaultDraftBlockRenderMap
 } from 'draft-js'
 class BaseWrapper extends React.Component {
@@ -37,13 +41,14 @@ class AtomicWrapper extends BaseWrapper {
   }
 }
 
-const LinkWrapper = (props) => {
-  const {url} = props.contentState.getEntity(props.entityKey).getData()
-  return (
-    <a href={url}>
-      {props.children}
-    </a>
-  )
+
+
+class LinkWrapper extends BaseWrapper {
+
+    render() {
+      const {url} = this.props.contentState.getEntity(this.props.entityKey).getData()
+      return <a href={url} className="db-link">{this.props.children}</a>
+    }
 }
 
 const blockRenderMap = Immutable.Map({

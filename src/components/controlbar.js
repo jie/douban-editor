@@ -71,7 +71,7 @@ const BUTTON_ITEMS = [
     label: 'preface',
     tip: '前言',
     type: 'command',
-    command: 'showPreface'
+    command: 'togglePreface'
   },
   {
     label: 'save',
